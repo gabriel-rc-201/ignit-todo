@@ -69,9 +69,9 @@ app.post("/todos", checksExistsUserAccount, (req, res) => {
 
 app.put("/todos/:id", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const todoId = req.query.id;
+  const { id } = req.params;
 
-  const todo = user.todos.find((todo) => todo.id === todoId);
+  const todo = user.todos.find((todo) => todo.id === id);
   if (!todo) {
     return res.status(404).json({ error: "Todo not found!" });
   }
@@ -86,9 +86,9 @@ app.put("/todos/:id", checksExistsUserAccount, (req, res) => {
 
 app.patch("/todos/:id/done", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const todoId = req.query.id;
+  const { id } = req.params;
 
-  const todo = user.todos.find((todo) => todo.id === todoId);
+  const todo = user.todos.find((todo) => todo.id === id);
   if (!todo) {
     return res.status(404).json({ error: "Todo not found!" });
   }
@@ -100,16 +100,17 @@ app.patch("/todos/:id/done", checksExistsUserAccount, (req, res) => {
 
 app.delete("/todos/:id", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const todoId = req.query.id;
+  const { id } = req.params;
 
-  const todo = user.todos.find((todo) => todo.id === todoId);
-  if (!todo) {
+  const todo = user.todos.findIndex((todo) => todo.id === id);
+
+  if (todo === -1) {
     return res.status(404).json({ error: "Todo not found!" });
   }
 
-  user.tods.splice(todo, 1);
+  user.todos.splice(todo, 1);
 
-  res.status(200).json(user.todos);
+  res.status(204).json();
 });
 
 module.exports = app;
