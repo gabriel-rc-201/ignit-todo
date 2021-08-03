@@ -69,7 +69,8 @@ app.post("/todos", checksExistsUserAccount, (req, res) => {
 
 app.put("/todos/:id", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const { id } = req.params;
+  const { id } = req.params; // para os testes
+  // const { id } = req.query; // para poder funcionar
 
   const todo = user.todos.find((todo) => todo.id === id);
   if (!todo) {
@@ -86,7 +87,8 @@ app.put("/todos/:id", checksExistsUserAccount, (req, res) => {
 
 app.patch("/todos/:id/done", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const { id } = req.params;
+  const { id } = req.params; // para os testes
+  // const { id } = req.query; // para poder funcionar
 
   const todo = user.todos.find((todo) => todo.id === id);
   if (!todo) {
@@ -100,7 +102,8 @@ app.patch("/todos/:id/done", checksExistsUserAccount, (req, res) => {
 
 app.delete("/todos/:id", checksExistsUserAccount, (req, res) => {
   const { user } = req;
-  const { id } = req.params;
+  const { id } = req.params; // para os testes
+  // const { id } = req.query; // para poder funcionar
 
   const todo = user.todos.findIndex((todo) => todo.id === id);
 
